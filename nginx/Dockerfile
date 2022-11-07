@@ -68,8 +68,11 @@ RUN set -ex \
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
-FROM nginx:mainline
+FROM nginx:1.23
 COPY --from=builder /tmp/packages /tmp/packages
+
+RUN curl -SsfL -o /usr/local/bin/gomplate "https://github.com/hairyhenderson/gomplate/releases/download/v3.11.3/gomplate_linux-amd64-slim"
+RUN chmod u+x /usr/local/bin/gomplate
 
 RUN set -ex \
     && apt update \
@@ -80,3 +83,7 @@ RUN set -ex \
     && rm -rf /tmp/packages \
     && rm -rf /var/lib/apt/lists/
 
+
+COPY docker-entrypoint.d/gomplate.sh /docker-entrypoint.d/40-gomplate.sh
+RUN chmod u+x /docker-entrypoint.d/40-gomplate.sh
+COPY nginx.conf.tmpl /nginx.conf.tmpl

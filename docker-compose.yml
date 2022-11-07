@@ -11,5 +11,7 @@ services:
         ENABLED_MODULES: ndk lua
     ports:
       - 8080:8080
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    # volumes:
+    #   - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    environment:
+      UPSTREAM_URL: "http://rest-api:5000"
