@@ -13,12 +13,12 @@ class Item(BaseModel):
 app = FastAPI()
 
 
-@app.get("/")
+@app.get("/v1/")
 async def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/not_debug")
+@app.get("/v1/not_debug")
 async def not_debug():
     return JSONResponse(
         content={"Not": "Debug"},
@@ -28,11 +28,11 @@ async def not_debug():
     )
 
 
-@app.get("/items/{item_id}")
+@app.get("/v1/items/{item_id}")
 async def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
 
-@app.post("/items/")
+@app.post("/v1/items/")
 async def create_item(item: Item):
     return item
