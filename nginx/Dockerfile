@@ -68,11 +68,8 @@ RUN set -ex \
     done \
     && echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
 
-FROM grafana/promtail:2.6.1 AS promtail
-
 FROM nginx:mainline
 COPY --from=builder /tmp/packages /tmp/packages
-COPY --from=promtail /usr/bin/promtail /usr/bin/promtail
 
 RUN set -ex \
     && apt update \
