@@ -9,6 +9,7 @@ services:
       context: ./nginx/
       args:
         ENABLED_MODULES: ndk lua
+    image: spacefill/nginx-proxy-requests-responses-log-debug:develop
     ports:
       - 8080:8080
     # volumes:
