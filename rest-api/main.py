@@ -1,6 +1,7 @@
 from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.responses import JSONResponse
 
 
 class Item(BaseModel):
@@ -15,6 +16,16 @@ app = FastAPI()
 @app.get("/")
 async def read_root():
     return {"Hello": "World"}
+
+
+@app.get("/not_debug")
+async def not_debug():
+    return JSONResponse(
+        content={"Not": "Debug"},
+        headers={
+            "X-Spacefill-Debug": "no"
+        }
+    )
 
 
 @app.get("/items/{item_id}")
