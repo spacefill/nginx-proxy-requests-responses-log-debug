@@ -23,7 +23,7 @@ http {
 
     access_log /var/log/nginx/access.log custom if=$loggable;
     server {
-        listen 8080;
+        listen 80;
         location / {
             proxy_pass {{ .Env.UPSTREAM_URL }};
         }
