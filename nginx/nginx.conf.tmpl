@@ -3,6 +3,7 @@ load_module modules/ngx_http_lua_module.so;
 events {}
 http {
     log_format custom escape=json '{'
+        '"request_method": "$request_method",'
         '"request_uri": "$request_uri",'
         '"request_body": "$request_body",'
         '"response_body": "$resp_body",'
